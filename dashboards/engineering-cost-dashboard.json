@@ -1,0 +1,200 @@
+{
+  "widgets": [
+    {
+      "type": "text",
+      "x": 0, "y": 0, "width": 24, "height": 1,
+      "properties": {
+        "markdown": "# Engineering Cost Dashboard\n**Account:** Production | **Region:** us-east-1 | **Updated:** Auto-refresh every 6h"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0, "y": 1, "width": 12, "height": 6,
+      "properties": {
+        "title": "Monthly Estimated Charges (Total)",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "Currency", "USD", {
+            "stat": "Maximum", "period": 21600, "label": "Total Estimated Charges"
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "yAxis": { "left": { "label": "USD", "showUnits": false, "min": 0 } }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12, "y": 1, "width": 12, "height": 6,
+      "properties": {
+        "title": "Current Month Spend",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "Currency", "USD", {
+            "stat": "Maximum", "period": 86400
+          }]
+        ],
+        "view": "singleValue",
+        "region": "us-east-1",
+        "sparkline": true
+      }
+    },
+    {
+      "type": "text",
+      "x": 0, "y": 7, "width": 24, "height": 1,
+      "properties": {
+        "markdown": "## Cost by Service"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0, "y": 8, "width": 8, "height": 5,
+      "properties": {
+        "title": "EC2 Charges",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "ServiceName", "AmazonEC2", "Currency", "USD", {
+            "stat": "Maximum", "period": 21600
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "label": "USD" } }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8, "y": 8, "width": 8, "height": 5,
+      "properties": {
+        "title": "S3 Charges",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "ServiceName", "AmazonS3", "Currency", "USD", {
+            "stat": "Maximum", "period": 21600
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "label": "USD" } }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16, "y": 8, "width": 8, "height": 5,
+      "properties": {
+        "title": "RDS Charges",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "ServiceName", "AmazonRDS", "Currency", "USD", {
+            "stat": "Maximum", "period": 21600
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "label": "USD" } }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0, "y": 13, "width": 8, "height": 5,
+      "properties": {
+        "title": "Lambda Charges",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "ServiceName", "AWSLambda", "Currency", "USD", {
+            "stat": "Maximum", "period": 21600
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "label": "USD" } }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8, "y": 13, "width": 8, "height": 5,
+      "properties": {
+        "title": "ECS Charges",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "ServiceName", "AmazonECS", "Currency", "USD", {
+            "stat": "Maximum", "period": 21600
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "label": "USD" } }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16, "y": 13, "width": 8, "height": 5,
+      "properties": {
+        "title": "ELB Charges",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "ServiceName", "AWSELB", "Currency", "USD", {
+            "stat": "Maximum", "period": 21600
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "label": "USD" } }
+      }
+    },
+    {
+      "type": "text",
+      "x": 0, "y": 18, "width": 24, "height": 1,
+      "properties": {
+        "markdown": "## Budget Utilization"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0, "y": 19, "width": 12, "height": 5,
+      "properties": {
+        "title": "Spend vs Budget ($50 Monthly)",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "Currency", "USD", {
+            "id": "spend", "stat": "Maximum", "period": 86400, "label": "Current Spend"
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "annotations": {
+          "horizontal": [
+            { "value": 50, "label": "Budget Limit", "color": "#d13212", "fill": "above" },
+            { "value": 40, "label": "80% Warning", "color": "#ff7f0e", "fill": "none" }
+          ]
+        },
+        "yAxis": { "left": { "min": 0, "max": 60, "label": "USD" } }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12, "y": 19, "width": 12, "height": 5,
+      "properties": {
+        "title": "Budget Utilization %",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "Currency", "USD", {
+            "id": "m1", "stat": "Maximum", "period": 86400, "visible": false
+          }],
+          [{ "expression": "(m1/50)*100", "label": "% of Budget Used", "id": "e1" }]
+        ],
+        "view": "gauge",
+        "region": "us-east-1",
+        "yAxis": { "left": { "min": 0, "max": 120 } }
+      }
+    },
+    {
+      "type": "text",
+      "x": 0, "y": 24, "width": 24, "height": 1,
+      "properties": {
+        "markdown": "## Cost Alarm Status"
+      }
+    },
+    {
+      "type": "alarm",
+      "x": 0, "y": 25, "width": 24, "height": 3,
+      "properties": {
+        "title": "Active Cost Alarms",
+        "alarms": [
+          "arn:aws:cloudwatch:us-east-1:871939031886:alarm:Billing-Alert-$10",
+          "arn:aws:cloudwatch:us-east-1:871939031886:alarm:billing-alert-$10"
+        ]
+      }
+    }
+  ]
+}

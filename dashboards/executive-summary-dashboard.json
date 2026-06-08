@@ -1,0 +1,87 @@
+{
+  "widgets": [
+    {
+      "type": "text",
+      "x": 0, "y": 0, "width": 24, "height": 2,
+      "properties": {
+        "markdown": "# Executive Cost Summary\n**Period:** Current Month | **Owner:** FinOps Team | **Audience:** Leadership\n\n> This dashboard shows total cloud spend, top cost drivers, and budget status at a glance."
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0, "y": 2, "width": 8, "height": 4,
+      "properties": {
+        "title": "Total Month-to-Date Spend",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "Currency", "USD", {
+            "stat": "Maximum", "period": 86400
+          }]
+        ],
+        "view": "singleValue",
+        "region": "us-east-1",
+        "sparkline": true
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8, "y": 2, "width": 8, "height": 4,
+      "properties": {
+        "title": "Top Service: EC2",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "ServiceName", "AmazonEC2", "Currency", "USD", {
+            "stat": "Maximum", "period": 86400
+          }]
+        ],
+        "view": "singleValue",
+        "region": "us-east-1",
+        "sparkline": true
+      }
+    },
+    {
+      "type": "metric",
+      "x": 16, "y": 2, "width": 8, "height": 4,
+      "properties": {
+        "title": "Budget Utilization %",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "Currency", "USD", {
+            "id": "m1", "stat": "Maximum", "period": 86400, "visible": false
+          }],
+          [{ "expression": "(m1/50)*100", "label": "% Used", "id": "e1" }]
+        ],
+        "view": "singleValue",
+        "region": "us-east-1"
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0, "y": 6, "width": 24, "height": 6,
+      "properties": {
+        "title": "30-Day Spending Trend (All Services)",
+        "metrics": [
+          ["AWS/Billing", "EstimatedCharges", "Currency", "USD", {
+            "stat": "Maximum", "period": 86400, "label": "Daily Estimated Total"
+          }]
+        ],
+        "view": "timeSeries",
+        "region": "us-east-1",
+        "annotations": {
+          "horizontal": [
+            { "value": 50, "label": "Monthly Budget", "color": "#d13212" }
+          ]
+        },
+        "yAxis": { "left": { "min": 0, "label": "USD" } }
+      }
+    },
+    {
+      "type": "alarm",
+      "x": 0, "y": 12, "width": 24, "height": 2,
+      "properties": {
+        "title": "Cost Alert Status",
+        "alarms": [
+          "arn:aws:cloudwatch:us-east-1:871939031886:alarm:Billing-Alert-$10",
+          "arn:aws:cloudwatch:us-east-1:871939031886:alarm:billing-alert-$10"
+        ]
+      }
+    }
+  ]
+}
